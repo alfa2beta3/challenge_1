@@ -28,9 +28,12 @@ class TestCell(TestCase):
     def test_update(self):
         cell = Cell((0, 0), (0, 0))
         self.assertFalse(cell.active)
-        cell.update(self, True)
+        cell.future_state = True
+        cell.update()
         self.assertTrue(cell.active)
 
     def test_flip(self):
         # test the flip method of the cell class
-        self.fail()
+        active_cell = Cell((0, 0), (0, 0), active=False)
+        active_cell.flip()
+        self.assertTrue(active_cell.active)
