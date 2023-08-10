@@ -40,6 +40,11 @@ class TestCell(TestCase):
 
     def test_flip(self):
         # test the flip method of the cell class
+
         active_cell = Cell((0, 0), (0, 0), active=False)
         active_cell.flip()
         self.assertTrue(active_cell.active)
+
+        inactive_cell = Cell((0, 0), (0, 0), active=True)
+        inactive_cell.flip()
+        self.assertFalse(inactive_cell.active)
