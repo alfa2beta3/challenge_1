@@ -12,31 +12,40 @@ class TestCell(TestCase):
         for neighbor_count in range(9):
             active_test_cell.set_future_state(neighbor_count)
             if neighbor_count == 2 or neighbor_count == 3:
-                self.assertTrue(active_test_cell.future_state, f'future_state should be true for {neighbor_count} neighbors')
+                self.assertTrue(active_test_cell.future_state,
+                                f'future_state should be true for {neighbor_count} neighbors')
             else:
-                self.assertFalse(active_test_cell.future_state, f'future_state should be false for {neighbor_count} neighbors')
+                self.assertFalse(active_test_cell.future_state,
+                                 f'future_state should be false for {neighbor_count} neighbors')
 
         # Inactive cells should only be activated if they have exactly 3 neighbors
         inactive_test_cell = Cell((0, 0), (0, 0), active=False)
         for neighbor_count in range(9):
             inactive_test_cell.set_future_state(neighbor_count)
             if neighbor_count == 3:
-                self.assertTrue(inactive_test_cell.future_state, f'future_state should be true for {neighbor_count} neighbors')
+                self.assertTrue(inactive_test_cell.future_state,
+                                f'future_state should be true for {neighbor_count} neighbors')
             else:
-                self.assertFalse(inactive_test_cell.future_state, f'future_state should be false for {neighbor_count} neighbors')
+                self.assertFalse(inactive_test_cell.future_state,
+                                 f'future_state should be false for {neighbor_count} neighbors')
 
     def test_update(self):
 
-        # Scenario 1: the cell's future state is inactive
-        cell = Cell((0, 0), (0, 0))
-        cell.future_state = False
-        cell.update()
-        self.assertFalse(cell.active)
+        # Scenario 1: the inactive cell is updated to be active
+        inactive_cell = Cell((0, 0), (0, 0))
+        self.assertFalse(inactive_cell.active)
 
-        # Scenario 2: the cell is active
-        cell.future_state = True
-        cell.update()
-        self.assertTrue(cell.active)
+        inactive_cell.future_state = True
+        inactive_cell.update()
+        self.assertTrue(inactive_cell.active)
+
+        # Scenario 2: the active cell is updated to be inactive
+        active_cell = Cell((0, 0), (0, 0), True)
+        self.assertTrue(active_cell.active)
+
+        active_cell.future_state = False
+        active_cell.update()
+        self.assertFalse(active_cell.active)
 
     def test_flip(self):
         # test the flip method of the cell class
