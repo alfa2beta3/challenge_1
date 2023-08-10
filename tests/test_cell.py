@@ -26,8 +26,14 @@ class TestCell(TestCase):
                 self.assertFalse(inactive_test_cell.future_state, f'future_state should be false for {neighbor_count} neighbors')
 
     def test_update(self):
+
+        # Scenario 1: the cell's future state is inactive
         cell = Cell((0, 0), (0, 0))
+        cell.future_state = False
+        cell.update()
         self.assertFalse(cell.active)
+
+        # Scenario 2: the cell is active
         cell.future_state = True
         cell.update()
         self.assertTrue(cell.active)
