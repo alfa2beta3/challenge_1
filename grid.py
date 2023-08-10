@@ -1,7 +1,7 @@
 from cell import Cell
 
 CELL_OFFSET = 2
-PADDING = 7
+PADDING: int = 7
 
 
 class Grid:
